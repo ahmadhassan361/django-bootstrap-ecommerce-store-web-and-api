@@ -1,0 +1,110 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block title %}
+<title>Singup | Nexgen-shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination</title>
+<meta name="title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta name="description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexgen-shop.com/">
+<meta property="og:title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta property="og:description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+<meta property="og:image" content="https://nexgen-shop.com{% static 'img/meta_img.png' %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://nexgen-shop.com/">
+<meta property="twitter:title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta property="twitter:description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+<meta property="twitter:image" content="https://nexgen-shop.com{% static 'img/meta_img.png' %}">
+{% endblock title %}
+
+{% block main %}
+
+{% if msg %}
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+   
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+        
+        <h1 class="font-weight-semi-bold text-uppercase mb-3 w-50 mx-auto text-center">{{msg}}</h1>
+        
+    </div>
+    
+
+    
+</div>
+<!-- Page Header End -->
+{% else %}
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+   
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Register</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="{% url 'index' %}">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Register</p>
+        </div>
+    </div>
+    
+
+    
+</div>
+<!-- Page Header End -->
+<div class="container" >
+    <div class="row align-items-center justify-content-between py-5">
+        <img  src="{% static 'img/signup.svg' %}" class="col-md-6 login-img" alt="" srcset="">
+        
+        <form method="POST" action="" class="col-md-4    rounded " style="padding-top: 20px;padding-bottom: 20px;">
+            {% csrf_token %}
+            <h3 class=" text-primary font-weight-semi-bold text-center mb-3" >Register</h3>
+
+            {% if errors %}
+            <div class="text-danger">
+            {{errors}}
+        </div>
+            {% endif %}
+            <div class="mb-3 mt-2">
+            <label for="exampleInputEmail1" class="form-label">Fullname</label>
+            <input type="text" class="form-control rounded" id="fullname" name="fullname" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3 mt-2">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control rounded" id="email" name="email" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control rounded" id="password1" name="password1" required>
+            
+            </div>
+            <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control rounded" id="password2" name="password2" required>
+            
+            </div>
+           
+            
+
+            <div class="text-center">
+
+                <button type="submit" class="btn btn-primary w-50 mx-auto mb-3" style="border-radius: 100px;">Submit</button><br>
+                <a href="{% url 'login' %}" class="text-center mx-auto ">Already have account! <span>Login</span></a>
+            </div>
+            
+      </form>
+    </div>
+    
+</div>
+
+
+{% endif %}
+
+
+
+
+{% endblock main %}
+
+
+

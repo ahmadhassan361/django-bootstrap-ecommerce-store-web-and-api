@@ -1,0 +1,279 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block title %}
+<title>NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination</title>
+<meta name="title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta name="description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexgen-shop.com/">
+<meta property="og:title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta property="og:description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+<meta property="og:image" content="https://nexgen-shop.com{% static 'img/meta_img.png' %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://nexgen-shop.com/">
+<meta property="twitter:title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta property="twitter:description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+<meta property="twitter:image" content="https://nexgen-shop.com{% static 'img/meta_img.png' %}">
+{% endblock title %}
+
+{% block main %}
+
+
+
+
+    <!-- Featured Start -->
+    <div class="container-fluid ">
+        <div class="row px-xl-5 ">
+            <div class="col-lg-3 col-md-3 col-6 pb-1 px-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <small class="font-weight-semi-bold m-0 text-dark">Quality Product</small>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-6 pb-1 px-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <small class="font-weight-semi-bold m-0 text-dark">Free Shipping</small>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-6 pb-1 px-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <small class="font-weight-semi-bold m-0 text-dark">14-Day Return</small>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-6 pb-1 px-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <small class="font-weight-semi-bold m-0 text-dark">24/7 Support</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Featured End -->
+
+
+    <!-- Categories Start -->
+    <div class="container-fluid pt-2">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Categories</span></h2>
+        </div>
+        <div class="row px-xl-5 pb-3">
+            {% for cat in categories %}
+            
+            
+            <div class="col-lg-2 col-md-3 col-4 pb-1 px-1">
+                <div class="cat-item d-flex flex-column border mb-4" style="padding: 5px;">
+                    
+                    <a href="{% url 'shop' %}?main-cat={{cat.id}}" class="cat-img position-relative overflow-hidden mb-3">
+                        <img class="img-fluid cat-img w-100" src="{{cat.image.url}}"   alt="">
+                    </a>
+                    <p class="font-weight-semi-bold  m-0 text-center">{{cat.title}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Categories End -->
+
+
+    <!-- Offer Start -->
+    <div class="container-fluid offer pt-5">
+        <div class="row px-xl-5">
+            {% if offers %}
+                {% for offer in offers|slice:':2' %}
+                    {% if forloop.counter0 == 0 %}
+                        <div class="col-md-6 col-12 pb-4  px-1">
+                            <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 " 
+                            style="max-height:300px;background-image:url('{{offer.image.url}}');background-size: cover;
+                            background-repeat:   no-repeat;
+                            background-position: center center; ">
+                                <div class="position-relative text-left py-5 px-5" style="z-index: 1;background-color:rgb(0,0,0,0.2);">
+                                    <h5 class="text-uppercase font-weight-semi-bold text-light mb-3">{{offer.sub_title}}</h5>
+                                    <h2 class="mb-4 font-weight-bold text-primary">{{offer.title}}</h2>
+                                    <a href="{% url 'shop' %}" class="btn btn-outline-light py-md-2 px-md-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-md-6 col-12 pb-4 px-1">
+                            <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 "
+                             style="max-height:300px;background-image:url('{{offer.image.url}}');background-size: cover;
+                            background-repeat:   no-repeat;
+                            background-position: center center; ">
+                                
+                                <div class="position-relative w-100 text-right  py-5 px-5"  style="z-index: 1;background-color:rgb(0,0,0,0.4);"
+                                 style="max-height:300px;">
+                                    <h5 class="text-uppercase font-weight-semi-bold text-light mb-3">{{offer.sub_title}}</h5>
+                                    <h2 class="mb-4 font-weight-bold text-primary">{{offer.title}}</h2>
+                                    <a href="{% url 'shop' %}" class="btn btn-outline-light py-md-2 px-md-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- Offer End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
+        </div>
+        <div class="row px-xl-5 pb-3">
+            {% for pr in trendy_product %}
+                {% include 'components/product.html' %}
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Products End -->
+
+
+    <!-- Subscribe Start -->
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-5 px-xl-5">
+            <div class="col-md-6 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+                    <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
+                    <p>Enter your Email to stay updated with our latest offers, news & sales</p>
+                </div>
+                <form action="" method="POST">
+                    <div class="input-group">
+                        <input type="email" class="form-control border-white p-4" required name="email" placeholder="Email Goes Here">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary px-4">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Subscribe End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Just Arrived</span></h2>
+        </div>
+        <div class="row px-xl-5 pb-3">
+            {% for pr in new_product %}
+            {% include 'components/product.html' %}
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Products End -->
+
+    <!-- Offer Start -->
+    <div class="container-fluid offer pt-5">
+        <div class="row px-xl-5">
+            {% if offers|length > 2 %}
+                {% for offer in offers|slice:'2:4' %}
+                    {% if forloop.counter0 == 0 %}
+                        <div class="col-md-6 col-12 pb-4 px-1">
+                            <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 " style="max-height:300px;background-image:url('{{offer.image.url}}');background-size:     cover;
+                            background-repeat:   no-repeat;
+                            background-position: center center; ">
+                                <div class="position-relative text-left py-5 px-5" style="z-index: 1;background-color:rgb(0,0,0,0.2);">
+                                    <h5 class="text-uppercase font-weight-semi-bold text-light mb-3">{{offer.sub_title}}</h5>
+                                    <h2 class="mb-4 font-weight-bold text-primary">{{offer.title}}</h2>
+                                    <a href="{% url 'shop' %}" class="btn btn-outline-light py-md-2 px-md-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-md-6 col-12 pb-4 px-1">
+                            <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 " style="max-height:300px;background-image:url('{{offer.image.url}}');background-size:     cover;
+                            background-repeat:   no-repeat;
+                            background-position: center center; ">
+                                
+                                <div class="position-relative w-100 text-right  py-5 px-5"  style="z-index: 1;background-color:rgb(0,0,0,0.4);" style="max-height:300px;">
+                                    <h5 class="text-uppercase font-weight-semi-bold text-light mb-3">{{offer.sub_title}}</h5>
+                                    <h2 class="mb-4 font-weight-bold text-primary">{{offer.title}}</h2>
+                                    <a href="{% url 'shop' %}" class="btn btn-outline-light py-md-2 px-md-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- Offer End -->
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Lower Rates</span></h2>
+        </div>
+        <div class="row px-xl-5 pb-3">
+            {% for pr in products_price %}
+            {% include 'components/product.html' %}
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Products End -->
+
+    <div>
+        <a href="{% url 'shop' %}" class="btn btn-primary btn-block border-0 py-2 mx-auto  text-white" type="submit" style="width:150px">See More</a>
+    </div>
+
+    <div class="container-fluid py-5">
+        <img src="{% static 'img/brands-img.jpeg' %}" class="fluid-img w-100" style="max-height:60vh;">
+    </div>
+    <!-- Vendor Start -->
+    <div class="container-fluid py-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Brands</span></h2>
+        </div>
+        <div class="row px-lg-2 px-1">
+            <div class="col">
+                <div class="owl-carousel vendor-carousel">
+                    {% for brand in brands %}
+                    <div class="vendor-item col-12  px-0 text-center px-lg-3">
+                                <a href="{% url 'shop' %}?brand={{brand.id}}" class=" ">
+                                <img src="{{brand.image.url}}" class="w-100 h-100 rounded-circle border shadow" alt="">
+                                <hr class="w-25">
+                                <h6 class="font-weight-semi-bold">{{brand.title}}</h6>
+                            </a>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+
+
+
+
+
+
+{% endblock main %}
+
+{% block foot %}
+<script>
+    if(window.innerWidth < 500){
+        console.log("yes")
+        $('#navbar-vertical').removeClass('show');
+        
+    }
+    
+    $(window).on('resize', function(){
+        if(window.innerWidth < 500){
+            console.log("yes")
+            $('#navbar-vertical').removeClass('show');
+            
+        }
+    });
+</script>
+{% endblock foot %}
+

@@ -1,0 +1,29 @@
+<div class="col-lg-12 col-12 px-lg-3 px-1 product-item border-0  ">
+    <a href="{% url 'product_detail' pr=pr.product.title %}?id={{pr.id}}">
+        {% if pr.discount %}
+    <p style="
+      position: absolute;
+      z-index: 10;
+      padding: 2px;
+      margin-top: 10px;
+      margin-left: 10px;
+    " class="bg-primary text-white shadow rounded">
+        -{{pr.discount}}%
+    </p>
+    {% endif %}
+    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+        <img class="img-fluid w-100" src="{{pr.product.image.url}}" style="height:25vh;" alt="" />
+    </div>
+    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+        <h6 class=" mb-2 text-break">{{pr.product.title|slice:'50'}}</h6>
+        <div class="row px-1 justify-content-center">
+            {% if pr.discount > 0 %} {% load custom_tags %}
+            <h6 class="text-sm-left">Rs. {% discount pr.sale_price pr.discount %}</h6><br>
+            {% comment %} <small class="text-muted ml-2 text-sm-left"><del>(Rs. {{pr.sale_price}})</del></small> {% endcomment %}
+            {% else %}
+            <sma>Rs. <b>{{pr.sale_price}}</b></sma>
+            {% endif %}
+        </div>
+    </div>
+    </a>
+</div>

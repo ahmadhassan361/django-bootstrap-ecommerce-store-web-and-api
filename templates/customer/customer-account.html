@@ -1,0 +1,106 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block title %}
+<title>Account | NexGen Shop | E-commerce | Pakistan</title>
+{% endblock title %}
+
+{% block main %}
+
+
+
+  {% if message %}
+      <div class="d-block" style="width:100vw;height:100vh;z-index: 110;background-color: rgb(0,0,0,0.5);position: fixed;top: 0;left: 0;">
+        <div class=" rounded shadow mx-auto text-center pt-3" style="width: 300px;background-color:#fff;height: 320px;z-index: 120;margin-top:25vh;">
+          <img src="{% static 'img/checked.png' %}"  class="mb-3" alt="">
+          <h3 class="font-weight-semi-bold mb-3" style="color: #16A085;">{{message}}</h3>
+          <h1><a href="{% url 'account' %}" class="btn btn-success mt-2 font-weight-semi-bold text-white mx-auto rounded">OK</a></h1>
+        </div>
+      </div>
+    
+  {% endif %}
+  <!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+   
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+      
+      <h1 class="font-weight-semi-bold text-uppercase mb-3">Account</h1>
+      
+      <div class="d-inline-flex">
+          <p class="m-0"><a href="{% url 'index' %}">Home</a></p>
+          <p class="m-0 px-2">-</p>
+          <p class="m-0">My Account</p>
+      </div>
+  </div>
+  
+
+  
+</div>
+<!-- Page Header End -->
+<div class="container mt-5">
+    <div class="col-md-6 mx-auto border rounded py-3">
+        <h1 class="rounded-circle pt-4 bg-dark text-white text-center mx-auto" style="width: 120px;height: 120px;font-size:50px;">{{customer.fullname|slice:':1'}}</h1>
+        <h2 class="text-center">{{customer.fullname}}</h2>
+        <hr>
+        {% comment %} <h5>My Details</h5> {% endcomment %}
+        <form class="w-100" method="POST">
+          {% csrf_token %}
+          {% if error %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>warning!</strong> {{error}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %}
+          {% if messages %}
+            {% for msg in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>{{msg.tags}}!</strong> {{msg}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+          {% endif %}
+            <div class="form-group">
+              <label for="fullname">Fullname <sup class="text-primary">*</sup></label>
+              <input type="text" class="form-control" id="fullname" value="{{customer.fullname}}" name="fullname" aria-describedby="fullname" >
+            </div>
+            <div class="form-group">
+              <label for="email">Email <sup class="text-primary">*</sup></label>
+              <input type="email" class="form-control" id="email" value="{{customer.user.email}}" name="email" aria-describedby="email" disabled>
+            </div>
+            <div class="form-group">
+              <label for="mobile">Mobile No <sup class="text-primary">*</sup></label>
+              <input type="tel" class="form-control" id="mobile" value="{{customer.mobile_no}}" name="mobile" aria-describedby="mobile">
+            </div>
+            <div class="form-group">
+              <label for="address">Complete Address (H #,ST # & Landmark) <sup class="text-primary">*</sup></label>
+              <input type="text" class="form-control" id="address" value="{{customer.address}}" name="address" aria-describedby="address">
+            </div>
+            <div class="d-flex justify-content-space-between">
+                <div class="form-group w-75 ">
+                    <label for="city">City <sup class="text-primary">*</sup></label>
+                    <input type="text" class="form-control" id="city" value="{{customer.city}}" name="city" aria-describedby="city">
+                </div>&nbsp;
+                <div class="form-group w-25 ">
+                    <label for="zipcode">Zip Code <sup class="text-primary">*</sup></label>
+                    <input type="tel" class="form-control" id="zipcode" value="{{customer.zipcode}}" name="zipcode" aria-describedby="zipcode">
+                </div>
+            </div>
+            <div class="form-group  ">
+                <label for="province">province <sup class="text-primary">*</sup></label>
+                <input type="text" class="form-control" id="province" value="{{customer.province}}" name="province" aria-describedby="province">
+            </div>
+
+            
+            <button type="submit" class="btn btn-primary rounded w-25">Save</button>
+          </form>
+    </div>
+</div>
+
+
+{% endblock main %}
+
+
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<!-- f23535
+bd1515 -->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    {% block title %}
+    
+    {% endblock title %}
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination" name="keywords">
+    <meta content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion." name="description">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/fav/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/fav/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'img/fav/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'img/fav/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!--Ajax CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!--Less Css-->
+    <link rel="stylesheet/less" type="text/css" href="{% static 'css/style.less' %}" />
+    {% block head %}
+
+    {% endblock head %}
+</head>
+
+<body>
+    <a href="https://api.whatsapp.com/send/?phone=%2B923073939075" class="py-2 px-3 shadow text-decoration-none bg-primary btn btn-primary" style="background-color:#4DC247;position: fixed;bottom: 30vh;right: 0px;z-index: 9999; 
+    border-radius: 20px 0px 0px 20px;"><span class="text-white align-text-center"><i class="fab fa-whatsapp h-3"></i> &nbsp;WhatsApp</span></a>
+    
+    {% if header_banner %}
+    {% include 'components/header.html' %}
+    {% endif %}
+    {% include 'components/navbar.html' %}
+
+    {% block main %}
+
+    
+    {% endblock main %}
+
+    {% include 'components/footer.html' %}
+    {% block foot %}
+    
+    {% endblock foot %}
+    
+    <script>
+        var user = '{{request.user}}';
+        
+    </script>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!--Less Js-->
+    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1" ></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    {% comment %} <script src="{% static 'mail/contact.js' %}"></script> {% endcomment %}
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% comment %} <script src="{% static 'js/cart.js' %}"></script> {% endcomment %}
+</body>
+
+</html>

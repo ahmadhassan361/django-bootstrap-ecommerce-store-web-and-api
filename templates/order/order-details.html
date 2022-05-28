@@ -1,0 +1,148 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}
+<title>Order Details | NexGen Shop | E-commerce</title>
+{% endblock title %}
+{% block main %}
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+   
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+        
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Order Details</h1>
+        
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="{% url 'index' %}">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Order Details</p>
+        </div>
+    </div>
+    
+
+    
+</div>
+<!-- Page Header End -->
+
+<div class="container mt-5">
+    <h3 class="text-center ">Order Details</h3>
+    <div class="row mt-2">
+        <div class="col-lg-6 col-md-6 col-12 px-1">
+            <div>
+                <h5>Thanks for you order! Check out the details below.</h5>
+                <h6>Order Number - <span>{{order.order_id}}</span></h6>
+                <small>Normally Order Delivered in 2 to 5 days</small>
+            </div>
+            <hr>
+            <h5>Order Status</h5>
+            <ul class="StepProgress">
+                <li class="StepProgress-item is-done">
+                    <strong>Ordered</strong>
+                    {{order.date}}
+                </li>
+                {% if order.status == 'pending' %}
+                <li class="StepProgress-item current"><strong>Order Pending</strong></li>
+                <li class="StepProgress-item"><strong>Order Processing</strong></li>
+                <li class="StepProgress-item"><strong>Order Shipped</strong></li>
+                <li class="StepProgress-item"><strong>Order Delivered</strong></li>
+                {% elif order.status == 'processing' %}
+                <li class="StepProgress-item is-done"><strong>Order Pending</strong></li>
+                <li class="StepProgress-item current"><strong>Order Processing</strong></li>
+                <li class="StepProgress-item"><strong>Order Shipped</strong></li>
+                <li class="StepProgress-item"><strong>Order Delivered</strong></li>
+                {% elif order.status == 'shipped' %}
+                <li class="StepProgress-item is-done"><strong>Order Pending</strong></li>
+                <li class="StepProgress-item is-done"><strong>Order Processing</strong></li>
+                <li class="StepProgress-item current"><strong>Order Shipped</strong></li>
+                <li class="StepProgress-item"><strong>Order Delivered</strong></li>
+                {% elif order.status == 'delivered' %}
+                <li class="StepProgress-item is-done"><strong>Order Pending</strong></li>
+                <li class="StepProgress-item is-done"><strong>Order Processing</strong></li>
+                <li class="StepProgress-item is-done"><strong>Order Shipped</strong></li>
+                <li class="StepProgress-item is-done"><strong>Order Delivered</strong></li>
+                {% elif order.status == 'cancelled' %}
+                <li class="StepProgress-item is-done text-primary"><strong>Order Cancelled</strong>{{order.cancel_reason}}</li>
+                {% elif order.status == 'rejected' %}
+                <li class="StepProgress-item is-done text-primary"><strong>Order Rejected</strong>{{order.cancel_reason}}</li>
+                {% endif %}
+                
+            </ul>
+           
+        </div>
+        <div class="col-lg-6 col-md-6 col-12" style="border-left: 1px solid #B7B7B7;">
+            <div>
+                <h5>Order Items</h5>
+                <div class="table-responsive-sm">
+                    <table class="table table-bordered text-center mb-0">
+                        <thead class="bg-secondary text-dark">
+                            <tr>
+                                <th>Products</th>
+                                
+                                <th>Size</th>
+                                <th>Color</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                            {% for item in order_items %}
+                            <tr >
+                                <td class="" style="min-width: 220px;">
+                                    <div class="row px-1 justify-content-center">
+                                        <img src="{{item.product.product.image.url}}"  alt="" style="width: 50px;">
+                                        <div class="text-left col-12">
+                                            <a  href="{% url 'product_detail' pr=item.product.id %}" style="font-size: 15px;"><small>{{item.product.product.title|slice:":40"}}</small></a>
+                                            
+                                        </div>
+                                    </div>
+                                    {% load custom_tags %}
+                                </td>
+                                
+                                <td><small>{{item.size}}</small></td>
+                                
+                                
+                                <td class="align-middle"><small>{{item.color}}</small></td>
+                                
+                                <td class="align-middle"><small>Rs. {% discount item.product.sale_price item.product.discount %}</small></td>
+                                <td class="align-middle">
+                                    <small>{{item.quantity}}</small>
+                                </td>
+                                <td class="align-middle"><small>Rs. {% item_total item.product.sale_price item.product.discount item.quantity %}</small></td>
+                            </tr>
+                            {% endfor %}
+    
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <div class="w-100">
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h6 class="font-weight-medium">Subtotal</h6>
+                        <h6 class="font-weight-medium">Rs. {{order.total_price}}</h6>
+                        
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Shipping</h6>
+                        <h6 class="font-weight-medium">Rs. {{order.shipping_fee}}</h6>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h4 class="font-weight-semi-bold">Total</h4>
+                        <h4 class="font-weight-semi-bold">Rs. {{order.total_price|add:order.shipping_fee}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock main %}
+
+
+

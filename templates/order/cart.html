@@ -1,0 +1,165 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block title %}
+<title>Cart {% if cart_total %}({{cart_total}}){% endif %} | Nexgen-shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination</title>
+<meta name="title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta name="description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexgen-shop.com/">
+<meta property="og:title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta property="og:description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+<meta property="og:image" content="https://nexgen-shop.com{% static 'img/meta_img.png' %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://nexgen-shop.com/">
+<meta property="twitter:title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta property="twitter:description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+<meta property="twitter:image" content="https://nexgen-shop.com{% static 'img/meta_img.png' %}">
+{% endblock title %}
+
+{% block main %}
+{% load custom_tags %}
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Shopping Cart</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    {% if messages %}
+        {% for msg in messages %}
+            
+            {% if msg.tags == 'success' %}
+            <div class="d-block" style="width:100vw;height:100vh;z-index: 110;background-color: rgb(0,0,0,0.5);position: fixed;top: 0;left: 0;">
+                <div class=" rounded shadow mx-auto text-center pt-3" style="width: 300px;background-color:#fff;height: 320px;z-index: 120;margin-top:25vh;">
+                        <img src="{% static 'img/checked.png' %}"  class="mb-3" alt="">
+                        <h3 class="font-weight-semi-bold mb-3" style="color: #16A085;">{{msg}}</h3>
+                        <h1><a href="{% url 'index' %}" class="btn btn-success mt-2 font-weight-semi-bold text-white mx-auto rounded">Continue Shopping</a></h1>
+                </div>
+            
+            </div>
+            {% endif %}
+            
+        {% endfor %}
+    {% elif  cart_total <= 0 %}
+        <h1 class="font-weight-semi-bold  mb-3 text-center">No Item in Your Cart</h1>
+    {% else %}
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        {% for item in cart_items %}
+                        <tr >
+                            <td class=" ">
+                                <div class="row px-1 justify-content-space-between">
+
+                                    <img src="{{item.product.product.image.url}}" alt="" style="width: 50px;">
+                                    <div class="text-left">
+                                        <a  href="{% url 'product_detail' pr=item.product.id %}">{{item.product.product.title|slice:":40"}}</a>
+                                        <h6 class="text-left text-info">{% if item.size %}size: {{item.size}}{% endif %} {% if item.color %}color: {{item.color}}{% endif %}</td></h6>
+                                    </div>
+                                </div>
+                            <td class="align-middle">Rs. {% discount item.product.sale_price item.product.discount %}</td>
+                            <td class="align-middle">
+                                <form action="{% url 'update_item' %}" method="POST" >
+                                    {% csrf_token %}
+                                <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-sm btn-primary btn-minus" >
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm bg-secondary text-center" name="updated_quantity" value="{{item.quantity}}">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="item_id" value="{{item.id}}">
+                                    <button style="background-color: Transparent;background-repeat:no-repeat;border: none;"  class="text-primary"  type="submit"  >update</button>
+                                </form>
+                            </td>
+                            <td class="align-middle">Rs. {% item_total item.product.sale_price item.product.discount item.quantity %}</td>
+
+                            <td class="align-middle"><form action="{% url 'remove_to_cart' %}" method="POST"> {% csrf_token %}<button type="submit" value="{{item.id}}" name="item" class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></form></td>
+                        </tr>
+                        {% endfor %}
+
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                
+                <form action="{% url 'place_order' %}" method="POST">
+                    {% csrf_token %}
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium">Rs. {{price}}</h6>
+                            <input type="hidden" value="{{price}}" name="sub_total">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">Rs. {{shipping_charges.charges}}</h6>
+                            <input type="hidden" value="{{shipping_charges.charges}}" name="shipping">
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            {% if price %}
+                            <h5 class="font-weight-bold">Rs. {{price|add:shipping_charges.charges}}</h5>
+                            {% else %}
+                            <h5 class="font-weight-bold">Rs. 0</h5>
+                            
+                            {% endif %}
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                        <small class="font-weight-bold h6">Payment Type  </small>
+                        <small class="font-weight-bold h6">COD (Cash On Delivery)</small>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<!-- Cart End -->
+
+{% endblock main %}
+
+
+
+
+
+

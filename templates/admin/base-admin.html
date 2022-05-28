@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<!-- f23535
+bd1515 -->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    {% block title %}
+    
+    {% endblock title %}
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!--Ajax CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-- Font Awesome -->
+    {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"> {% endcomment %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!--Less Css-->
+    <link rel="stylesheet/less" type="text/css" href="{% static 'css/style.less' %}" />
+    {% block head %}
+
+    {% endblock head %}
+</head>
+
+<body>
+    
+    {% comment %} {% if header_banner %}
+    {% include 'components/header.html' %}
+    {% endif %}
+    {% include 'components/navbar.html' %} {% endcomment %}
+
+    <nav class="container-fluid bg-dark py-2 d-flex justify-content-space-between shadow">
+        
+        <div class="w-50">
+          <a class="navbar-brand" class="mt-auto" href=""><h4 class="text-white"><span class="text-white font-weight-bold border px-3 mr-1">NEXGEN</span> Shop Admin</h4></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        
+        <div class="w-50 text-right">
+          <a class="navbar-brand" class="mt-auto" href="{% url 'admin:index' %}"><h4 class="text-white"><span class="text-white font-weight-semi-bold  px-3 "><i class="fas fa-tools"></i> Admin</span></h4></a>
+          <a class="navbar-brand" class="mt-auto" href="{% url 'index' %}"><h4 class="text-white"><span class="text-white font-weight-semi-bold  px-3 "><i class="fas fa-globe"></i> Site</span></h4></a>
+          
+        </div>
+        
+      </nav>
+
+    {% block main %}
+
+    
+    {% endblock main %}
+
+    {% comment %} {% include 'components/footer.html' %} {% endcomment %}
+    {% block foot %}
+    
+    {% endblock foot %}
+    
+    <script>
+        var user = '{{request.user}}';
+        
+    </script>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!--Less Js-->
+    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1" ></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    {% comment %} <script src="{% static 'mail/contact.js' %}"></script> {% endcomment %}
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% comment %} <script src="{% static 'js/cart.js' %}"></script> {% endcomment %}
+</body>
+
+</html>

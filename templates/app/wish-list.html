@@ -1,0 +1,93 @@
+{% extends 'components/base.html' %}
+{% block title %}
+<title>WishList | NexGen Shop | e-commerce | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination</title>
+<meta name="title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta name="description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexgen-shop.com/">
+<meta property="og:title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta property="og:description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+<meta property="og:image" content="https://nexgen-shop.com{% static 'img/meta_img.png' %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://nexgen-shop.com/">
+<meta property="twitter:title" content="NexGen Shop | Online Store | NexGen Shop is a Beauty, Fashion and Lifestyle e-commerce shopping destination">
+<meta property="twitter:description" content="We are a dedicated team of professionals working hard to provide high-end western fashion from every part of the world to your doorstep in only 18-25 Days. From runway inspired clothing and handbags to collector’s dream list of watches, shoes and fragrances, www.nexgen-shop.com has everything to satisfy your thirst for fashion.">
+<meta property="twitter:image" content="https://nexgen-shop.com{% static 'img/meta_img.png' %}">
+{% endblock title %}
+
+{% block main %}
+
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+   
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+        
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Wish List</h1>
+        
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="{% url 'index' %}">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">WishList</p>
+        </div>
+    </div>
+    
+
+    
+</div>
+<!-- Page Header End -->
+
+
+
+<!-- Shop Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        
+
+
+        <!-- Shop Product Start -->
+        <div class="col-lg-12 col-md-12">
+            <div class="row pb-3">
+                
+                {% for pr in products %}
+                
+                {% include 'components/product.html' %}
+                {% endfor %}
+                <div class="col-12 pb-1">
+                    
+                    {% if products.has_other_pages %}
+                        <ul class=" pagination justify-content-center mb-3">
+                            {% if products.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?{% if search %}search={{search}}&{% endif %}{% if cat %}cat={{cat.id}}&{% endif %}{% if main_cat %}main-cat={{main_cat.id}}&{% endif %}page={{ products.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                            <li class="page-item disabled "><span class="page-link">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in products.paginator.page_range %}
+                            {% if products.number == i %}
+                                <li class="page-item active"><span class="page-link" >{{ i }} <span class="sr-only ">(current)</span></span></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?{% if search %}search={{search}}&{% endif %}{% if cat %}cat={{cat.id}}&{% endif %}{% if main_cat %}main-cat={{main_cat.id}}&{% endif %}page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if products.has_next %}
+                            <li class="page-item"><a class="page-link" href="?{% if search %}search={{search}}&{% endif %}{% if cat %}cat={{cat.id}}&{% endif %}{% if main_cat %}main-cat={{main_cat.id}}&{% endif %}page={{ products.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><span class="page-link" >&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Shop Product End -->
+    </div>
+</div>
+<!-- Shop End -->
+
+{% endblock main %}
+
+

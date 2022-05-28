@@ -1,0 +1,85 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}
+<title>MyOrder | NexGen Shop | E-commerce | Pakistan</title>
+{% endblock title %}
+
+
+{% block main %}
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+   
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 200px">
+        
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">My Orders</h1>
+        
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="{% url 'index' %}">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">My Order</p>
+        </div>
+    </div>
+    
+
+    
+</div>
+<!-- Page Header End -->
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12 col-12 border">
+            <div class="row p-0 justify-content-center">
+                
+            
+
+                <div class="scrolling-wrapper mx-auto search-bar py-4 ">
+                    
+                    <a href="{% url 'myorder' %}" class="px-3 py-2 text-decoration-none border mx-1 {% if filter == None %} active-chip {% endif %} " style="border-radius:50px;">ALL</a>
+                    <a href="{% url 'myorder' %}?filter=pending" class="px-3 py-2 text-decoration-none {% if filter == 'pending' %} active-chip {% endif %} border mx-1" style="border-radius:50px;">PENDING</a>
+                    <a href="{% url 'myorder' %}?filter=processing" class="px-3 py-2 text-decoration-none {% if filter == 'processing' %} active-chip {% endif %} border mx-1" style="border-radius:50px;">PROCESSING</a>
+                    <a href="{% url 'myorder' %}?filter=shipped" class="px-3 py-2 text-decoration-none border {% if filter == 'shipped' %} active-chip {% endif %}mx-1" style="border-radius:50px;">SHIPPED</a>
+                    <a href="{% url 'myorder' %}?filter=delivered" class="px-3 py-2 text-decoration-none border {% if filter == 'delivered' %} active-chip {% endif %}mx-1" style="border-radius:50px;">DELIVERED</a>
+                    <a href="{% url 'myorder' %}?filter=cancelled" class="px-3 py-2 text-decoration-none border mx-1 {% if filter == 'cancelled' %} active-chip {% endif %}" style="border-radius:50px;">CANCELLED</a>
+                    <a href="{% url 'myorder' %}?filter=rejected" class="px-3 py-2 text-decoration-none border mx-1 {% if filter == 'rejected' %} active-chip {% endif %}" style="border-radius:50px;">REJECTED</a>
+                    
+                </div>
+
+            </div> 
+            <hr class="w-50">
+            <div class="row pb-3 justify-content-center">
+                {% if orders %}
+                    {% for order in orders %}
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12  mb-2">
+                            <div class="row ">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                    <small class="text-dark">Order Number</small>
+                                    <h4 class="order-heading">{{order.order_id}}</h4>
+                                    <h6 class="font-weight-semi-bold order-text" style="color: #B7B7B7;">{{order.date}}</h6>
+                                    
+                                    <div class="font-weight-semi-bold  {% if order.status == "cancelled" or order.status == 'rejected' %}text-primary {% else %} text-success{% endif %} py-0 my-0 order-sub-heading">{{order.status|upper }}</div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-left" style="border-left: 1px solid black;">
+                                    <small class="text-dark">Order Price</small>
+                                    <h4 class="">Rs.{{order.total_price}}</h4>
+                                    <a href="{% url 'orderdetails' order=order.order_id %}" class="btn btn-primary  rounded mt-3">View Details</a>
+                                </div>
+                            </div>
+                            <hr >
+                        </div>
+                    {% endfor %}
+                {% else %} 
+                    <h1 class="mt-5 text-center">No Record Found</h1>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock main %}
+
+
+
